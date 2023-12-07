@@ -29,7 +29,7 @@ public class TimeServlet extends HttpServlet {
         engine = new TemplateEngine();
         FileTemplateResolver resolver = new FileTemplateResolver();
 
-        resolver.setPrefix("C:/Users/Abramiuk/Documents/GitHub/GoIT_dev_homework_9/src/main/resources/templates/");
+        resolver.setPrefix("/templates/");
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML5");
         resolver.setOrder(engine.getTemplateResolvers().size());
@@ -67,6 +67,6 @@ public class TimeServlet extends HttpServlet {
     private String getCurrentTime(String timezone){
         LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of(timezone));
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        return localDateTime.format(dateTimeFormatter);
+        return localDateTime.format(dateTimeFormatter) + " " + timezone;
     }
 }
