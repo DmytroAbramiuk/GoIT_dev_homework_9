@@ -25,11 +25,11 @@ public class TimeServlet extends HttpServlet {
     private TemplateEngine engine;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         engine = new TemplateEngine();
         FileTemplateResolver resolver = new FileTemplateResolver();
 
-        resolver.setPrefix("/templates/");
+        resolver.setPrefix("C:/Users/Abramiuk/Documents/GitHub/GoIT_dev_homework_9/src/main/resources/templates/");
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML5");
         resolver.setOrder(engine.getTemplateResolvers().size());
@@ -44,7 +44,11 @@ public class TimeServlet extends HttpServlet {
         String timezone = req.getParameter("timezone");
 
         if (timezone == null) {
-            timezone = Objects.requireNonNullElse(getTimezoneValue(req.getCookies()), DEFAULT_TIMEZONE);
+            if(req.getCookies() == null){
+                timezone = DEFAULT_TIMEZONE;
+            } else {
+                timezone = getTimezoneValue(req.getCookies());
+            }
         }
         resp.addCookie(new Cookie("lastTimezone", timezone));
 
